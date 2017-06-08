@@ -29,7 +29,9 @@ namespace Microsoft.Azure.Commands.Resources.Models
 
         public string ResourceName { get; set; }
 
-        public string ParentResource { get; set; }
+		public string resourceProviderNameSpace { get; set; }
+
+		public string ParentResource { get; set; }
 
         public string Subscription { get; set; }
 
@@ -47,8 +49,9 @@ namespace Microsoft.Azure.Commands.Resources.Models
                 Subscription = tokens[1];
                 ResourceGroupName = tokens[3];
                 ResourceName = tokens[tokens.Length - 1];
+				resourceProviderNameSpace = tokens[5];
 
-                List<string> resourceTypeBuilder = new List<string>();
+				List<string> resourceTypeBuilder = new List<string>();
                 resourceTypeBuilder.Add(tokens[5]);
 
                 List<string> parentResourceBuilder = new List<string>();

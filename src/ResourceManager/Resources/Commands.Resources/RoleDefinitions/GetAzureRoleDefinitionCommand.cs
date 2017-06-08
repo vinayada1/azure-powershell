@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Commands.Resources
 
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParameterSet.RoleDefinitionId, HelpMessage = "Role definition id.")]
         [ValidateGuidNotEmpty]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [ValidateNotNullOrEmpty]
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = ParameterSet.RoleDefinitionName, HelpMessage = "Scope of the existing role definition.")]

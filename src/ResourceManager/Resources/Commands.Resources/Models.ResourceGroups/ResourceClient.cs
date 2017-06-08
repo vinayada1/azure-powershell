@@ -138,9 +138,9 @@ namespace Microsoft.Azure.Commands.Resources.Models
 
         internal List<PSPermission> GetResourcePermissions(ResourceIdentifier identity)
         {
-			IList<Permission> permissionsResult = AuthorizationManagementClient.Permissions.ListForResource(
+			var permissionsResult = AuthorizationManagementClient.Permissions.ListForResource(
 					identity.ResourceGroupName,
-					identity.ToResourceIdentity(),
+					identity.resourceProviderNameSpace,
 					identity.ParentResource,
 					identity.ResourceType,
 					identity.ResourceName);

@@ -267,7 +267,7 @@ namespace Microsoft.Azure.Commands.Resources.Models.Authorization
             if (options.IncludeClassicAdministrators)
             {
                 // Get classic administrator access assignments 				
-				List<ClassicAdministrator> classicAdministrators = AuthorizationManagementClient.ClassicAdministrators.List().ToList();
+				List<ClassicAdministrator> classicAdministrators = AuthorizationManagementClient.ClassicAdministrators.List(AuthorizationManagementClient.ApiVersion).ToList();
                 List<PSRoleAssignment> classicAdministratorsAssignments = classicAdministrators.Select(a => a.ToPSRoleAssignment(currentSubscription)).ToList();
 
                 // Filter by principal if provided
