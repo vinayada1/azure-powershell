@@ -32,15 +32,17 @@ namespace Microsoft.Azure.Commands.Common.Authentication
         /// targeting the given named endpoint in the targeted environment</returns>
         TClient CreateClient<TClient>(IAzureContext context, string endpoint) where TClient : ServiceClient<TClient>;
 
-        /// <summary>
-        /// Create a properly configured Hyak client using the given target Azure context and named endpoint
-        /// </summary>
-        /// <typeparam name="TClient">The client type to create</typeparam>
-        /// <param name="profile">The container for azure target information</param>
-        /// <param name="endpoint">The named endpoint the client shoulld target</param>
-        /// <returns>A client properly authenticated in the given context, properly configured for use with Azure PowerShell, 
-        /// targeting the given named endpoint in the targeted environment</returns>
-        TClient CreateClient<TClient>(IAzureContextContainer profile, string endpoint) where TClient : ServiceClient<TClient>;
+		TClient CreateClientTestForRest<TClient>(IAzureContext context, string endpoint) where TClient : Microsoft.Rest.ServiceClient<TClient>;
+		
+		/// <summary>
+		/// Create a properly configured Hyak client using the given target Azure context and named endpoint
+		/// </summary>
+		/// <typeparam name="TClient">The client type to create</typeparam>
+		/// <param name="profile">The container for azure target information</param>
+		/// <param name="endpoint">The named endpoint the client shoulld target</param>
+		/// <returns>A client properly authenticated in the given context, properly configured for use with Azure PowerShell, 
+		/// targeting the given named endpoint in the targeted environment</returns>
+		TClient CreateClient<TClient>(IAzureContextContainer profile, string endpoint) where TClient : ServiceClient<TClient>;
 
         /// <summary>
         /// Create a properly configured Hyak client using the given target Azure context and named endpoint
