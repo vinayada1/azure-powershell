@@ -18,6 +18,7 @@ using Microsoft.Azure.Commands.Common.Authentication;
 using Microsoft.Azure.Commands.Common.Authentication.Abstractions;
 using Microsoft.Azure.Commands.Common.Authentication.Factories;
 using Microsoft.Azure.Commands.Common.Authentication.Models;
+using Microsoft.Azure.Commands.Common.Authentication.Properties;
 using Microsoft.Azure.Test.HttpRecorder;
 using Microsoft.Rest.Azure;
 using Microsoft.WindowsAzure.Commands.ScenarioTest;
@@ -94,7 +95,51 @@ namespace Microsoft.WindowsAzure.Commands.Common.Test.Mocks
             return CreateCustomClient<TClient>(creds, endpointUri);
         }
 
-        public TClient CreateCustomClient<TClient>(params object[] parameters) where TClient : ServiceClient<TClient>
+		public virtual TClient CreateClientTestForRest<TClient>(IAzureContext context, string endpoint) where TClient : Microsoft.Rest.ServiceClient<TClient>
+		{
+			if (context == null)
+			{
+				var exceptionMessage = endpoint == AzureEnvironment.Endpoint.ServiceManagement
+					? Resources.InvalidDefaultSubscription
+					: Resources.NoSubscriptionInContext;
+				throw new ApplicationException(exceptionMessage);
+			}
+
+			SubscriptionCloudCredentials creds = AzureSession.Instance.AuthenticationFactory.GetSubscriptionCloudCredentials(context, endpoint);
+			TClient client = CreateCustomClientTest<TClient>(creds, context.Environment.GetEndpointAsUri(endpoint), GetCustomHandlers());
+			//foreach (DelegatingHandler handler in GetCustomHandlers())
+			//{
+			//	client.AddHandlerToPipeline(handler);client.UserAgent
+			//}
+
+			return client;
+		}
+		public virtual TClient CreateCustomClientTest<TClient>(params object[] parameters) where TClient : Microsoft.Rest.ServiceClient<TClient>
+		{
+			List<Type> types = new List<Type>();
+			foreach (object obj in parameters)
+			{
+				types.Add(obj.GetType());
+			}
+
+			var constructor = typeof(TClient).GetConstructor(types.ToArray());
+
+			if (constructor == null)
+			{
+				throw new InvalidOperationException(string.Format(Resources.InvalidManagementClientType, typeof(TClient).Name));
+			}
+
+			TClient client = (TClient)constructor.Invoke(parameters);
+
+			foreach (ProductInfoHeaderValue userAgent in UserAgents)
+			{
+				client.UserAgent.Add(userAgent);
+			}
+
+			return client;
+		}
+
+		public TClient CreateCustomClient<TClient>(params object[] parameters) where TClient : ServiceClient<TClient>
         {
             TClient client = ManagementClients.FirstOrDefault(o => o is TClient) as TClient;
             if (client == null)
@@ -260,5 +305,7 @@ namespace Microsoft.WindowsAzure.Commands.Common.Test.Mocks
                 this.UniqueUserAgents = value;
             }
         }
-    }
+
+		public IEnumerable<ProductInfoHeaderValue> UserAgents { get; private set; }
+	}
 }

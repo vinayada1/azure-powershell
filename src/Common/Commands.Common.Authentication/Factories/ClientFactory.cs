@@ -113,7 +113,7 @@ namespace Microsoft.Azure.Commands.Common.Authentication.Factories
             return client;
         }
 
-        public virtual TClient CreateClient<TClient>(IAzureContextContainer container, string endpoint) where TClient : ServiceClient<TClient>
+		public virtual TClient CreateClient<TClient>(IAzureContextContainer container, string endpoint) where TClient : ServiceClient<TClient>
         {
             TClient client = CreateClient<TClient>(container.DefaultContext, endpoint);
             foreach (IClientAction action in GetActions())
@@ -171,7 +171,51 @@ namespace Microsoft.Azure.Commands.Common.Authentication.Factories
             return client;
         }
 
-        public virtual TClient CreateCustomClient<TClient>(params object[] parameters) where TClient : ServiceClient<TClient>
+		public virtual TClient CreateClientTestForRest<TClient>(IAzureContext context, string endpoint) where TClient : Microsoft.Rest.ServiceClient<TClient>
+		{
+			if (context == null)
+			{
+				var exceptionMessage = endpoint == AzureEnvironment.Endpoint.ServiceManagement
+					? Resources.InvalidDefaultSubscription
+					: Resources.NoSubscriptionInContext;
+				throw new ApplicationException(exceptionMessage);
+			}
+
+			SubscriptionCloudCredentials creds = AzureSession.Instance.AuthenticationFactory.GetSubscriptionCloudCredentials(context, endpoint);
+			TClient client = CreateCustomClientTest<TClient>(creds, context.Environment.GetEndpointAsUri(endpoint), GetCustomHandlers());
+			//foreach (DelegatingHandler handler in GetCustomHandlers())
+			//{
+			//	client.AddHandlerToPipeline(handler);client.UserAgent
+			//}
+
+			return client;
+		}
+		public virtual TClient CreateCustomClientTest<TClient>(params object[] parameters) where TClient : Microsoft.Rest.ServiceClient<TClient>
+		{
+			List<Type> types = new List<Type>();
+			foreach (object obj in parameters)
+			{
+				types.Add(obj.GetType());
+			}
+
+			var constructor = typeof(TClient).GetConstructor(types.ToArray());
+
+			if (constructor == null)
+			{
+				throw new InvalidOperationException(string.Format(Resources.InvalidManagementClientType, typeof(TClient).Name));
+			}
+
+			TClient client = (TClient)constructor.Invoke(parameters);
+
+			foreach (ProductInfoHeaderValue userAgent in UserAgents)
+			{
+				client.UserAgent.Add(userAgent);
+			}
+
+			return client;
+		}
+
+		public virtual TClient CreateCustomClient<TClient>(params object[] parameters) where TClient : ServiceClient<TClient>
         {
             List<Type> types = new List<Type>();
             foreach (object obj in parameters)
