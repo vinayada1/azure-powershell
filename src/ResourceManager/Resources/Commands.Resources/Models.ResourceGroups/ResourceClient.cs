@@ -69,7 +69,7 @@ namespace Microsoft.Azure.Commands.Resources.Models
             : this(
                 AzureSession.Instance.ClientFactory.CreateClient<ResourceManagementClient>(context, AzureEnvironment.Endpoint.ResourceManager),
                 new GalleryTemplatesClient(context),
-				AzureSession.Instance.ClientFactory.CreateClientTestForRest<AuthorizationManagementClient>(context, AzureEnvironment.Endpoint.ResourceManager))
+                AzureSession.Instance.ClientFactory.CreateClient<AuthorizationManagementClient>(context, AzureEnvironment.Endpoint.ResourceManager))
         {
 
         }

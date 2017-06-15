@@ -60,7 +60,7 @@ namespace Microsoft.Azure.Commands.Resources.Models.Authorization
         public AuthorizationClient(IAzureContext context)
         {
             ActiveDirectoryClient = new ActiveDirectoryClient(context);
-            AuthorizationManagementClient = AzureSession.Instance.ClientFactory.CreateClientTestForRest<AuthorizationManagementClient>(context, AzureEnvironment.Endpoint.ResourceManager);
+            AuthorizationManagementClient = AzureSession.Instance.ClientFactory.CreateClient<AuthorizationManagementClient>(context, AzureEnvironment.Endpoint.ResourceManager);
 		}
 
         /// <summary>
