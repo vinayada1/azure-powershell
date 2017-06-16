@@ -265,7 +265,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="complexParameters.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
