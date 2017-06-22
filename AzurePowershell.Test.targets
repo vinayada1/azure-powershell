@@ -57,6 +57,7 @@
 	</Target>
 
 	<Target Name="DeclareXunitTests">
+    <UsingTask TaskName="SmartTestingTask" AssemblyFile=".\tools\SmartTesterTask\SmartTesterTask\bin\Debug\SmartTesterTask.dll" />
     <SmartTestingTask  RepositoryOwner="Azure" RepositoryName="azure-powershell" PullRequestNumber="$(PullRequestNumber)">
       <Output TaskParameter ="TestAssemblies" ItemName="XUnitTests"/>
     </SmartTestingTask>
