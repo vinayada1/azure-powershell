@@ -12,6 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.Azure.Commands.Resources.Models.Authorization
@@ -20,7 +21,7 @@ namespace Microsoft.Azure.Commands.Resources.Models.Authorization
     {
         public string Name { get; set; }
 
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public bool IsCustom { get; set; }
 

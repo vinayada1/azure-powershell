@@ -11,7 +11,7 @@ namespace Microsoft.Azure.Commands.Resources.Models.Authorization
         public string RoleDefinitionName { get; set; }
 
         // Guid Id
-        public string RoleDefinitionId { get; set; }
+        public Guid RoleDefinitionId { get; set; }
 
         private string scope;
 

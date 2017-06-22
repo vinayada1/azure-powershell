@@ -60,7 +60,7 @@ function Test-RaNegativeScenarios
     
     # Bad Scope
     $badScope = '/subscriptions/'+ $subscription[0].Id +'/providers/nonexistent'
-    $badScopeException = "InvalidResourceNamespace: The resource namespace 'nonexistent' is invalid."
+    $badScopeException = "The resource namespace 'nonexistent' is invalid."
     Assert-Throws { Get-AzureRmRoleAssignment -Scope $badScope } $badScopeException
 }
 

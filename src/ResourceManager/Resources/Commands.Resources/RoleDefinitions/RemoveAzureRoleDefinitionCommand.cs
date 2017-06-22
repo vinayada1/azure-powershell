@@ -32,7 +32,7 @@ namespace Microsoft.Azure.Commands.Resources
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParameterSet.RoleDefinitionId,
             HelpMessage = "Role definition id")]
         [ValidateGuidNotEmpty]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [Parameter(Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParameterSet.RoleDefinitionName,
             HelpMessage = "Role definition name. For e.g. Reader, Contributor, Virtual Machine Contributor.")]
@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Commands.Resources
             PSRoleDefinition roleDefinition = null;
             string confirmMessage = null;
 
-            if (Id != string.Empty)
+            if (Id.ToString() != string.Empty)
             {
                 confirmMessage = string.Format(ProjectResources.RemoveRoleDefinition, Id);
             }

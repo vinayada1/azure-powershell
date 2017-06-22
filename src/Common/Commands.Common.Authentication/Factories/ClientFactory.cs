@@ -185,7 +185,7 @@ namespace Microsoft.Azure.Commands.Common.Authentication.Factories
 			TClient client = CreateCustomClientTest<TClient>(creds, context.Environment.GetEndpointAsUri(endpoint), GetCustomHandlers());
 			//foreach (DelegatingHandler handler in GetCustomHandlers())
 			//{
-			//	client.AddHandlerToPipeline(handler);client.UserAgent
+			//	client.AddHandlerToPipeline(handler);
 			//}
 
 			return client;

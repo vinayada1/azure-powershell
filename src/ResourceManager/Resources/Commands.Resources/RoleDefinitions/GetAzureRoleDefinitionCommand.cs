@@ -32,11 +32,11 @@ namespace Microsoft.Azure.Commands.Resources
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParameterSet.RoleDefinitionId, HelpMessage = "Role definition id.")]
-        [ValidateGuidNotEmpty]
-        public string Id { get; set; }
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParameterSet.RoleDefinitionId, HelpMessage = "Role definition id.")]		
+		[ValidateGuidNotEmpty]
+        public Guid Id { get; set; }
 
-        [ValidateNotNullOrEmpty]
+		[ValidateNotNullOrEmpty]
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = ParameterSet.RoleDefinitionName, HelpMessage = "Scope of the existing role definition.")]
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = ParameterSet.RoleDefinitionId, HelpMessage = "Scope of the existing role definition.")]
         [Parameter(Mandatory = false, ValueFromPipeline = true, ParameterSetName = ParameterSet.RoleDefinitionCustom, HelpMessage = "Scope of the existing role definition.")]
@@ -61,8 +61,8 @@ namespace Microsoft.Azure.Commands.Resources
                 {
                     Subscription = DefaultProfile.DefaultContext.Subscription.Id.ToString()
                 },
-                RoleDefinitionId = Id,
-                RoleDefinitionName = Name,
+                RoleDefinitionId = Id,				
+				RoleDefinitionName = Name,
             };
 
             WriteObject(PoliciesClient.FilterRoleDefinitions(options), enumerateCollection: true);

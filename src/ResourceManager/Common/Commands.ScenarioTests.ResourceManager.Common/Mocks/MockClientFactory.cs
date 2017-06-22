@@ -95,45 +95,40 @@ namespace Microsoft.WindowsAzure.Commands.Common.Test.Mocks
             return CreateCustomClient<TClient>(creds, endpointUri);
         }
 
-		public virtual TClient CreateClientTestForRest<TClient>(IAzureContext context, string endpoint) where TClient : Microsoft.Rest.ServiceClient<TClient>
+		public TClient CreateClientTestForRest<TClient>(IAzureContext context, string endpoint) where TClient : Rest.ServiceClient<TClient>
 		{
-			if (context == null)
-			{
-				var exceptionMessage = endpoint == AzureEnvironment.Endpoint.ServiceManagement
-					? Resources.InvalidDefaultSubscription
-					: Resources.NoSubscriptionInContext;
-				throw new ApplicationException(exceptionMessage);
-			}
-
-			SubscriptionCloudCredentials creds = AzureSession.Instance.AuthenticationFactory.GetSubscriptionCloudCredentials(context, endpoint);
-			TClient client = CreateCustomClientTest<TClient>(creds, context.Environment.GetEndpointAsUri(endpoint), GetCustomHandlers());
-			//foreach (DelegatingHandler handler in GetCustomHandlers())
-			//{
-			//	client.AddHandlerToPipeline(handler);client.UserAgent
-			//}
-
+			Debug.Assert(context != null);
+			var credentials = AzureSession.Instance.AuthenticationFactory.GetServiceClientCredentials(context);
+			var client = CreateCustomClientTest<TClient>(credentials, context.Environment.GetEndpointAsUri(endpoint),
+				context.Subscription.Id);
 			return client;
 		}
-		public virtual TClient CreateCustomClientTest<TClient>(params object[] parameters) where TClient : Microsoft.Rest.ServiceClient<TClient>
+		public TClient CreateCustomClientTest<TClient>(params object[] parameters) where TClient : Rest.ServiceClient<TClient>
 		{
-			List<Type> types = new List<Type>();
-			foreach (object obj in parameters)
+			TClient client = ManagementClients.FirstOrDefault(o => o is TClient) as TClient;
+			if (client == null)
 			{
-				types.Add(obj.GetType());
+				if (throwWhenNotAvailable)
+				{
+					throw new ArgumentException(
+						string.Format("TestManagementClientHelper class wasn't initialized with the {0} client.",
+							typeof(TClient).Name));
+				}
+				else
+				{
+					var realClientFactory = new ClientFactory();
+					var newParameters = new object[parameters.Length + 1];
+					Array.Copy(parameters, 0, newParameters, 1, parameters.Length);
+					newParameters[0] = HttpMockServer.CreateInstance();
+					var realClient = realClientFactory.CreateCustomClientTest<TClient>(newParameters);
+					return realClient;
+				}
 			}
 
-			var constructor = typeof(TClient).GetConstructor(types.ToArray());
-
-			if (constructor == null)
+			IAzureClient azureClient = client as IAzureClient;
+			if (azureClient != null)
 			{
-				throw new InvalidOperationException(string.Format(Resources.InvalidManagementClientType, typeof(TClient).Name));
-			}
-
-			TClient client = (TClient)constructor.Invoke(parameters);
-
-			foreach (ProductInfoHeaderValue userAgent in UserAgents)
-			{
-				client.UserAgent.Add(userAgent);
+				azureClient.LongRunningOperationRetryTimeout = 0;
 			}
 
 			return client;

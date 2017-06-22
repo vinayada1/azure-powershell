@@ -265,6 +265,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="complexParameters.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -698,4 +699,9 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties SessionRecords_4Microsoft_1Azure_1Commands_1Resources_1Test_1ScenarioTests_1RoleAssignmentTests_4RaByResource_1json__JSONSchema="\&quot;notActions\&quot;: null\" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

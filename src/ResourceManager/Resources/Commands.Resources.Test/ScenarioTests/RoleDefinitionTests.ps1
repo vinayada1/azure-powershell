@@ -36,7 +36,7 @@ function Test-RoleDefinitionCreateTests
 	
 	# Basic positive case - read from object
 	$roleDef = Get-AzureRmRoleDefinition -Name "Reader"
-	$roleDef.Id = $null
+	$roleDef.Id = "00000000-0000-0000-0000-000000000000"
 	$roleDef.Name = "Custom Reader"
 	$roleDef.Actions.Add("Microsoft.ClassicCompute/virtualMachines/restart/action")
 	$roleDef.Description = "Read, monitor and restart virtual machines"
@@ -71,7 +71,7 @@ function Test-RdNegativeScenarios
 
     $rdId = '85E460B3-89E9-48BA-9DCD-A8A99D64A674'
 	
-    $badIdException = "RoleDefinitionDoesNotExist: The specified role definition with ID '" + $rdId + "' does not exist."
+    $badIdException = "The specified role definition with ID '" + $rdId + "' does not exist."
 
     # Throws on trying to update the a role that does not exist
     Assert-Throws { Set-AzureRmRoleDefinition -InputFile .\Resources\RoleDefinition.json } $badIdException
