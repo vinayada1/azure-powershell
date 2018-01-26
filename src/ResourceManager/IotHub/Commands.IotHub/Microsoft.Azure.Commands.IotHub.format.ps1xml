@@ -2,366 +2,151 @@
 <Configuration>
   <ViewDefinitions>
     <View>
-      <Name>Microsoft.Azure.Commands.KeyVault.Models.KeyIdentityItem</Name>
+      <Name>
+        Microsoft.Azure.Commands.Management.IotHub.Models.PSCertificate
+      </Name>
       <ViewSelectedBy>
-        <TypeName>Microsoft.Azure.Commands.KeyVault.Models.KeyIdentityItem</TypeName>
+        <TypeName>Microsoft.Azure.Commands.Management.IotHub.Models.PSCertificate</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Status</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Expiry</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap/>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>ResourceGroupName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CertificateName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.Properties.IsVerified) { "Verified" } else { "Unverified" }</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Properties.Expiry.ToLocalTime().toString("M/dd/yyyy HH:MM")</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <Name>
+        Microsoft.Azure.Commands.Management.IotHub.Models.PSCertificateDescription
+      </Name>
+      <ViewSelectedBy>
+        <TypeName>Microsoft.Azure.Commands.Management.IotHub.Models.PSCertificateDescription</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
           <ListEntry>
             <ListItems>
               <ListItem>
-                <Label>Vault Name</Label>
-                <PropertyName>VaultName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Name</Label>
-                <PropertyName>Name</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Version</Label>
-                <PropertyName>Version</PropertyName>
-              </ListItem>             
-              <ListItem>
-                <Label>Id</Label>
                 <PropertyName>Id</PropertyName>
               </ListItem>
               <ListItem>
-                <Label>Enabled</Label>
-                <PropertyName>Enabled</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Expires</Label>
-                <PropertyName>Expires</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Not Before</Label>
-                <PropertyName>NotBefore</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Created</Label>
-                <PropertyName>Created</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Updated</Label>
-                <PropertyName>Updated</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Tags</Label>
-                <PropertyName>TagsTable</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>     
-    </View>
-    <View>
-      <Name>Microsoft.Azure.Commands.KeyVault.Models.SecretIdentityItem</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Azure.Commands.KeyVault.Models.SecretIdentityItem</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <Label>Vault Name</Label>
-                <PropertyName>VaultName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Name</Label>
-                <PropertyName>Name</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Version</Label>
-                <PropertyName>Version</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Id</Label>
-                <PropertyName>Id</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Enabled</Label>
-                <PropertyName>Enabled</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Expires</Label>
-                <PropertyName>Expires</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Not Before</Label>
-                <PropertyName>NotBefore</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Created</Label>
-                <PropertyName>Created</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Updated</Label>
-                <PropertyName>Updated</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Content Type</Label>
-                <PropertyName>ContentType</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Tags</Label>
-                <PropertyName>TagsTable</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
-      <Name>Microsoft.Azure.Commands.KeyVault.Models.PSVaultIdentityItem</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Azure.Commands.KeyVault.Models.PSVaultIdentityItem</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <Label>Vault Name</Label>
-                <PropertyName>VaultName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Resource Group Name</Label>
                 <PropertyName>ResourceGroupName</PropertyName>
               </ListItem>
               <ListItem>
-                <Label>Location</Label>
-                <PropertyName>Location</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Resource ID</Label>
-                <PropertyName>ResourceId</PropertyName>
-              </ListItem>              
-              <ListItem>
-                <Label>Tags</Label>
-                <PropertyName>TagsTable</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
-      <Name>Microsoft.Azure.Commands.KeyVault.Models.PSVault</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Azure.Commands.KeyVault.Models.PSVault</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <Label>Vault Name</Label>
-                <PropertyName>VaultName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Resource Group Name</Label>
-                <PropertyName>ResourceGroupName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Location</Label>
-                <PropertyName>Location</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Resource ID</Label>
-                <PropertyName>ResourceId</PropertyName>
-              </ListItem>              
-              <ListItem>
-                <Label>Vault URI</Label>
-                <PropertyName>VaultUri</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Tenant ID</Label>
-                <PropertyName>TenantName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>SKU</Label>
-                <PropertyName>Sku</PropertyName>
-              </ListItem>              
-              <ListItem>
-                <Label>Enabled For Deployment?</Label>
-                <PropertyName>EnabledForDeployment</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Enabled For Template Deployment?</Label>
-                <PropertyName>EnabledForTemplateDeployment</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Enabled For Disk Encryption?</Label>
-                <PropertyName>EnabledForDiskEncryption</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Access Policies</Label>
-                <PropertyName>AccessPoliciesText</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Tags</Label>
-                <PropertyName>TagsTable</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
-      <Name>Microsoft.Azure.Commands.KeyVault.Models.PSVaultAccessPolicy</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Azure.Commands.KeyVault.Models.PSVaultAccessPolicy</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <Label>Tenant ID</Label>
-                <PropertyName>TenantName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Object ID</Label>
-                <PropertyName>ObjectId</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Application ID</Label>
-                <PropertyName>ApplicationIdDisplayName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Display Name</Label>
-                <PropertyName>DisplayName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Permissions to Keys</Label>
-                <PropertyName>PermissionsToKeys</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Permissions to Secrets</Label>
-                <PropertyName>PermissionsToSecrets</PropertyName>
-              </ListItem>              
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
-      <Name>Microsoft.Azure.Commands.KeyVault.Models.Secret</Name>
-      <ViewSelectedBy>
-        <TypeName>Microsoft.Azure.Commands.KeyVault.Models.Secret</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <Label>Vault Name</Label>
-                <PropertyName>VaultName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Name</Label>
                 <PropertyName>Name</PropertyName>
               </ListItem>
               <ListItem>
-                <Label>Version</Label>
-                <PropertyName>Version</PropertyName>
+                <PropertyName>CertificateName</PropertyName>
               </ListItem>
               <ListItem>
-                <Label>Id</Label>
-                <PropertyName>Id</PropertyName>
+                <Label>Subject</Label>
+                <ScriptBlock>$_.Properties.Subject</ScriptBlock>
               </ListItem>
               <ListItem>
-                <Label>Enabled</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.Enabled;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <Label>Thumbprint</Label>
+                <ScriptBlock>$_.Properties.Thumbprint</ScriptBlock>
               </ListItem>
               <ListItem>
-                <Label>Expires</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.Expires;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <Label>Status</Label>
+                <ScriptBlock>if($_.Properties.IsVerified) { "Verified" } else { "Unverified" }</ScriptBlock>
               </ListItem>
               <ListItem>
-                <Label>Not Before</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.NotBefore;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <Label>Expiry</Label>
+                <ScriptBlock>$_.Properties.Expiry.ToLocalTime().toString("M/dd/yyyy HH:MM")</ScriptBlock>
               </ListItem>
               <ListItem>
                 <Label>Created</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.Created;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <ScriptBlock>$_.Properties.Created.ToLocalTime().toString("M/dd/yyyy HH:MM")</ScriptBlock>
               </ListItem>
               <ListItem>
-                <Label>Updated</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.Updated;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <PropertyName>Etag</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <Name>
+        Microsoft.Azure.Commands.Management.IotHub.Models.PSCertificateWithNonceDescription
+      </Name>
+      <ViewSelectedBy>
+        <TypeName>Microsoft.Azure.Commands.Management.IotHub.Models.PSCertificateWithNonceDescription</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Id</PropertyName>
               </ListItem>
               <ListItem>
-                <Label>Content Type</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.ContentType;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <PropertyName>ResourceGroupName</PropertyName>
               </ListItem>
               <ListItem>
-                <Label>Tags</Label>
-                <ScriptBlock>
-                  if ($_.Attributes -ne $null)
-                  {
-                    $_.Attributes.TagsTable;
-                  }
-                  else
-                  {
-                    $_.Attributes;
-                  }
-                </ScriptBlock>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>CertificateName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Subject</Label>
+                <ScriptBlock>$_.Properties.Subject</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Thumbprint</Label>
+                <ScriptBlock>$_.Properties.Thumbprint</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>VerificationCode</Label>
+                <ScriptBlock>$_.Properties.VerificationCode</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Status</Label>
+                <ScriptBlock>if($_.Properties.IsVerified) { "Verified" } else { "Unverified" }</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Expiry</Label>
+                <ScriptBlock>$_.Properties.Expiry.ToLocalTime().toString("M/dd/yyyy HH:MM")</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Created</Label>
+                <ScriptBlock>$_.Properties.Created.ToLocalTime().toString("M/dd/yyyy HH:MM")</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Etag</PropertyName>
               </ListItem>
             </ListItems>
           </ListEntry>
